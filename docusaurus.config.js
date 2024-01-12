@@ -7,8 +7,8 @@
 import {themes as prismThemes} from 'prism-react-renderer';
 
 
-const organizationName = "marceloferreira90";
-const projectName= "docusaurus-test"
+const organizationName = "marceloFerreira90";
+const projectName= "docusaurus_test"
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
