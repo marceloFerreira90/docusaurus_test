@@ -1,0 +1,50 @@
+name: Close as a feature
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  build:
+    permissions:
+      issues: write
+    runs-on: ubuntu-latest
+    steps:
+    - name: Close Issue
+      uses: peter-evans/close-issue@v3
+      if: contains(github.event.issue.labels.*.name, 'feature')
+      with:
+        comment: |
+          Thank you 🙇 for this request. This request has been classified as a feature by the maintainers.
+          
+          We take all the requests for features seriously and have passed this on to the internal teams for their consideration.
+          
+          Because any feature requires further maintenance and support in the long term by this team, we would like to exercise caution into adding new features. If this feature is something that can be implemented independently, please consider forking this repository and adding the feature.
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      # 👇 Build steps
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: yarn
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile --non-interactive
+      - name: Build
+        run: yarn build
+      # 👆 Build steps
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          # 👇 Specify build output path
+          path: build
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
