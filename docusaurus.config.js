@@ -42,6 +42,7 @@ const config = {
     [
       '@docusaurus/plugin-content-docs',
       {
+        id: "unique-docs-plugin-id",
         // ... other plugin options
         exclude: ['**/storybook-static/**'],
       },
