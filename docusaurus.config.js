@@ -38,6 +38,16 @@ const config = {
     locales: ['en'],
   },
 
+  plugins: [
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        // ... other plugin options
+        exclude: ['**/storybook-static/**'],
+      },
+    ],
+  ],
+
   presets: [
     [
       'classic',
